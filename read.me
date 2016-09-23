@@ -1,0 +1,49 @@
+ѕроект сделан согласно тестовому заданию
+
+одна точка  -  /book/changeBook метод post
+ на вход принимает xml вида
+
+ <catalog>
+    <book id="bk101">
+       <author>Gambardella, Matthew</author>
+       <title>XML Developer's Guide</title>
+       <genre>Computer</genre>
+       <price>44.95</price>
+       <publish_date>2000-10-01</publish_date>
+       <description>An in-depth look at creating applications
+       with XML.</description>
+    </book>
+    <book id="bk102">
+       <author>Ralls, Kim</author>
+       <title>Midnight Rain</title>
+       <genre>Fantasy</genre>
+       <price>5.95</price>
+       <publish_date>2000-12-16</publish_date>
+       <description>A former architect battles corporate zombies,
+       an evil sorceress, and her own childhood to become queen
+       of the world.</description>
+    </book>
+ </catalog>
+
+и согласно “« нет ид в базе добавл€ет, есть модифицирует(только  те пол€ которые пришли и не нул)
+
+т.е.  такой реквест:
+
+ <catalog>
+ <book id="bk102">
+
+       <price>15.95</price>
+
+    </book>
+ </catalog>
+
+ изменит только цену.
+Ѕез ид - генерируетс€ новый ид и добавл€ет в базу
+
+ ’ранилищем (кешем) данных служит ConcurrentHashMap(key - id, value - Book), при операции  добавлении/модификации
+ все данные с неЄ  отображаютс€ в xml.(используетс€ JAXB)
+
+ “есты
+AppTests - integration tests for all systems
+StoreTests - integration tests for only Store(Map and xml)
+
